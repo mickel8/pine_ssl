@@ -1,18 +1,9 @@
-defmodule PineSsl do
-  @moduledoc """
-  Documentation for `PineSsl`.
-  """
+defmodule PineSSL do
+  use Rustler, otp_app: :pine_ssl, crate: "pinessl"
 
-  @doc """
-  Hello world.
+  def add(_a, _b), do: :erlang.nif_error(:nif_not_loaded)
+end
 
-  ## Examples
-
-      iex> PineSsl.hello()
-      :world
-
-  """
-  def hello do
-    :world
-  end
+defmodule MyStruct do
+  defstruct a: 0
 end

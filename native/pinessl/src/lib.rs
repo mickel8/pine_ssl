@@ -1,25 +1,27 @@
-use rustler::{Encoder, Env, Error, Term};
+use rustler::resource::ResourceArc;
+use rustler::{Env, Term, NifStruct};
 
-mod atoms {
-    rustler::rustler_atoms! {
-        atom ok;
-        //atom error;
-        //atom __true__ = "true";
-        //atom __false__ = "false";
-    }
+rustler::atoms! {
+    ok,
+    error
 }
 
-rustler::rustler_export_nifs! {
-    "Elixir.PineSSL",
-    [
-        ("add", 2, add)
-    ],
-    None
+rustler::init!("PineSSL", [add], load=load);
+
+#[derive(NifStruct)]
+#[module = "MyStruct"]
+pub struct MyStruct {
+    pub a: i64
 }
 
-fn add<'a>(env: Env<'a>, args: &[Term<'a>]) -> Result<Term<'a>, Error> {
-    let num1: i64 = args[0].decode()?;
-    let num2: i64 = args[1].decode()?;
-
-    Ok((atoms::ok(), num1 + num2).encode(env))
+fn load(env: Env, _info: Term) -> bool {
+    rustler::resource!(MyStruct, env);
+    true
 }
+
+#[rustler::nif]
+fn add(a: i64, b: i64) -> ResourceArc<MyStruct> {
+    ResourceArc::new(MyStruct{a: a+b})
+}
+
+

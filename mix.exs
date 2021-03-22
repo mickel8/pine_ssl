@@ -1,4 +1,4 @@
-defmodule PineSsl.MixProject do
+defmodule PineSSL.MixProject do
   use Mix.Project
 
   def project do
@@ -23,7 +23,7 @@ defmodule PineSsl.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:rustler, "~> 0.21.1"}
+      {:rustler, "~> 0.22.0-rc.0"}
     ]
   end
 end

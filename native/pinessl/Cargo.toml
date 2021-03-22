@@ -10,5 +10,7 @@ path = "src/lib.rs"
 crate-type = ["dylib"]
 
 [dependencies]
-rustler = "0.21.1"
+rustler = "0.22.0-rc.0"
 lazy_static = "1.0"
+boring-sys = "1.1.0"
+
